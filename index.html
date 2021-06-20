@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap Theme CSS -->
+    <link rel="stylesheet" href="minty.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="index.js"></script>
+    <title>Image Classifier</title>
+</head>
+
+<body>
+    <h1 class="text-center mt-4">Image Classifier</h1>
+    <div class="container-md">
+        <div class="row-md">
+            <!-- Image input -->
+            <div class="form-outline mb-4">
+                <label class="form-label" for="customFile">Choose an image you want to classify:</label>
+                <input type="file" class="form-control" id="customFile" />
+            </div>
+            <!-- Submit button -->
+            <button type="submit" class="btn btn-primary btn-block" style="width: 120px" onclick="classify()">Classify</button>
+            <!-- Preview of image -->
+        </div>
+        <div class="row mt-4">
+            <div class="row">
+                <div class="col-12 col-md" style="width: 50%">
+                    <figure class="figure" style="width: 50%">
+                        <img src="" class="img-fluid" id="preview">
+                    </figure>
+                </div>
+                <div class="col-12 col-md">
+                    <p id="list_title"></p>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item" id="pred0"></li>
+                        <li class="list-group-item" id="pred1"></li>
+                        <li class="list-group-item" id="pred2"></li>
+                        <li class="list-group-item" id="pred3"></li>
+                        <li class="list-group-item" id="pred4"></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+</body>
+
+</html>
