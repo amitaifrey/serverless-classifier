@@ -7,6 +7,7 @@
 # @return The output of this action, which must be a JSON object.
 #
 #
+import datetime
 import sys
 import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2' 
@@ -18,7 +19,8 @@ import numpy as np
 import base64
 
 def main(dict):
-    print(os.listdir("/root/.keras/models")) 
+    # print(os.listdir("/root/.keras/models")) 
+    start = datetime.datetime.now()
     try:
         model = NASNetMobile()
         img = tf.io.decode_base64(dict['image'])
@@ -33,8 +35,11 @@ def main(dict):
         result = []
         for pred in top5:
             result.append({pred[1]: str(pred[2])})
+        end = datetime.datetime.now()
+        elapsed = end - start
         return { 
-            'result': result 
+            'result': result,
+            'duration': str(elapsed.seconds) + "." + str(int(elapsed.microseconds / 1000)),
         }
     except Exception as e:
         return {'error' : str(e)}

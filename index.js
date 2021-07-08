@@ -9,6 +9,7 @@ function imageLoaded(e) {
 
     // Remove the prefix to only keep data, and change to base64 url safe encoding
     var data = e.target.result.replace("data:image/jpeg;base64,", '').replaceAll("+", "-").replaceAll("/", "_");
+    var start = Date.now();
 
     // make here your ajax call
     $.ajax({
@@ -25,7 +26,11 @@ function imageLoaded(e) {
                 "image": data
             },
             success: function(data) {
-                list_title.innerHTML = "Predictions:";
+                var end = Date.now();
+                var elapsed = end - start;
+                var seconds = parseInt(Math.abs(elapsed) / (1000) % 60);
+                var ms = elapsed - seconds*1000;
+                list_title.innerHTML = "Classifying took " + seconds + "." + ms + "s overall, " + data["duration"] + "s in the python script.<br/><br/>Predictions:";
                 result = data["result"]
                 for (let i = 0; i < result.length; i++) {
                     document.getElementById("pred"+i).innerHTML = Object.keys(result[i]) + ": " + Object.values(result[i]);
