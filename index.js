@@ -1,4 +1,7 @@
+// ImageLoaded updates the image on the page, and posts it to the classifier.
+// Once a result is returned from the classifier, it presents it to the user.
 function imageLoaded(e) {
+    // Load the image on the page and change the text
     list_title = document.getElementById("list_title");
     list_title.innerHTML = "Classifying...";
                     for (let i = 0; i < 5; i++) {
@@ -9,9 +12,11 @@ function imageLoaded(e) {
 
     // Remove the prefix to only keep data, and change to base64 url safe encoding
     var data = e.target.result.replace("data:image/jpeg;base64,", '').replaceAll("+", "-").replaceAll("/", "_");
+
+    // Start timing the classification
     var start = Date.now();
 
-    // make here your ajax call
+    // Calls the classifier asynchronously
     $.ajax({
             type: "POST",
             url: 'https://89b097d7.eu-gb.apigw.appdomain.cloud/classify/classify',
@@ -26,6 +31,8 @@ function imageLoaded(e) {
                 "image": data
             },
             success: function(data) {
+                // Present the overall time the classification took, how much it took in the python script
+                // and the predicitions themselves on the page
                 var end = Date.now();
                 var elapsed = end - start;
                 var seconds = parseInt(Math.abs(elapsed) / (1000) % 60);
@@ -38,10 +45,12 @@ function imageLoaded(e) {
             }
         })
         .fail(function(xhr, textStatus, errorThrown) {
+            // Present the error on the page
             list_title.innerHTML = "Error:" + xhr.responseText;
         });
 }
 
+// Classify loads the image and sets a callback to run once it's loaded
 function classify() {
     var reader = new FileReader();
     customFile = document.getElementById("customFile");
